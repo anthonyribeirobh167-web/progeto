@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>DELAS STORE | Moda Feminina Premium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #faf7f2;
+      color: #2d2d2d;
+      line-height: 1.4;
+      padding-bottom: 30px;
+    }
+
+    :root {
+      --vinho: #800020;
+      --bege: #f5ebe0;
+      --bege-claro: #faf3ec;
+      --branco: #ffffff;
+      --cinza-texto: #3a3a3a;
+    }
+
+    h1, h2, h3 {
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin: 0 0 0.5rem 16px;
+      color: var(--vinho);
+      font-weight: 350;
+      border-left: 4px solid var(--vinho);
+      padding-left: 12px;
+    }
+
+    .menu-horizontal {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      background: var(--branco);
+      padding: 12px 16px;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border-bottom: 1px solid rgba(128,0,32,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .menu-horizontal::-webkit-scrollbar { display: none; }
+    .menu-item {
+      white-space: nowrap;
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .menu-item.ativo { border-bottom-color: var(--vinho); color: var(--vinho); font-weight: 500; }
+    .icone-menu {
+      font-size: 1.2rem;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, var(--bege-claro) 0%, #fff6ed 100%);
+      padding: 40px 20px 30px 20px;
+      text-align: center;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 6px 20px rgba(128,0,32,0.05);
+      margin-bottom: 30px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      color: var(--vinho);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #5a5a5a;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .hero-botoes {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--branco);
+      border: 1px solid var(--vinho);
+      color: var(--vinho);
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-vinho {
+      background: var(--vinho);
+      color: white;
+      border: none;
+      box-shadow: 0 8px 16px rgba(128,0,32,0.15);
+    }
+
+    .categoria-secao {
+      margin-bottom: 20px;
+    }
+
+    /* Remove os títulos das categorias */
+    .categoria-secao h2 {
+      display: none;
+    }
+
+    .cards-scroll {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 8px 16px 20px 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cards-scroll::-webkit-scrollbar { display: none; }
+    .card {
+      flex: 0 0 150px;
+      background: white;
+      border-radius: 28px;
+      padding: 12px 10px 14px 10px;
+      box-shadow: 0 10px 18px -6px rgba(0,0,0,0.08);
+      scroll-snap-align: start;
+      border: 1px solid rgba(128,0,32,0.05);
+      transition: transform 0.15s;
+    }
+    .card:hover { transform: scale(0.98); }
+    .card-imagem {
+      width: 100%;
+      aspect-ratio: 1/1.2;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #f5ebe0;
+    }
+    .preco {
+      font-weight: 600;
+      color: var(--vinho);
+      font-size: 1rem;
+      margin-top: 8px;
+      display: block;
+    }
+    .btn-card {
+      background: transparent;
+      border: 1px solid var(--vinho);
+      color: var(--vinho);
+      border-radius: 40px;
+      padding: 8px 0;
+      width: 100%;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .looks-grid {
+      display: flex;
+      gap: 16px;
+      padding: 0 16px 20px;
+      overflow-x: auto;
+    }
+    .look-card {
+      flex: 0 0 200px;
+      background: white;
+      border-radius: 40px;
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.15);
+    }
+    .look-img {
+      height: 200px;
+      border-radius: 40px 40px 0 0;
+      background-size: cover;
+      background-position: center;
+      background-color: #f5ebe0;
+    }
+    .look-info {
+      padding: 16px;
+    }
+    .btn-look {
+      background: var(--vinho);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 0;
+      width: 100%;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .beneficios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 16px;
+      background: var(--branco);
+      padding: 28px 16px;
+      margin: 30px 0;
+      border-radius: 60px 60px 30px 30px;
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.8), 0 8px 18px rgba(0,0,0,0.02);
+    }
+    .beneficio-item {
+      flex: 1 0 40%;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--vinho);
+    }
+    .icone { font-size: 2rem; margin-bottom: 4px; }
+
+    .depoimentos {
+      padding: 20px 16px 30px;
+    }
+    .depoimento-card {
+      background: white;
+      padding: 22px;
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .estrelas { color: #d4af37; font-size: 1.2rem; letter-spacing: 2px; }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .modal-produto {
+      background: white;
+      width: 100%;
+      max-height: 94vh;
+      overflow-y: auto;
+      border-radius: 40px 40px 0 0;
+      padding: 28px 20px 30px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.08);
+      animation: slideUp 0.3s;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-img {
+      width: 100%;
+      height: 250px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      background-size: cover;
+      background-position: center;
+      background-color: #f5ebe0;
+    }
+    .opcao-pagamento {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .opcao-pagamento button {
+      background: #f0f0f0;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 40px;
+      font-size: 1rem;
+      flex: 1 0 auto;
+      cursor: pointer;
+    }
+    .opcao-pagamento button.selecionado { background: var(--vinho); color: white; }
+    .entrega-opcoes {
+      display: flex;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .entrega-opcoes label { display: flex; align-items: center; gap: 6px; }
+    .endereco-form input {
+      width: 100%;
+      padding: 14px 18px;
+      margin: 6px 0;
+      border-radius: 50px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(37,211,102,0.25);
+      z-index: 30;
+      border: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .hidden-categoria { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="menu-horizontal" id="menuFiltro">
+    <span class="menu-item ativo" data-categoria="todos">Todos</span>
+    <span class="menu-item" data-categoria="calcas">Calças</span>
+    <span class="menu-item" data-categoria="shorts">Shorts</span>
+    <span class="menu-item" data-categoria="alfaiataria">Alfaiataria</span>
+    <span class="menu-item" data-categoria="vestidos">Vestidos</span>
+    <span class="menu-item" data-categoria="conjuntos">Conjuntos</span>
+    <span class="menu-item" data-categoria="blusas">Blusas</span>
+    <span class="menu-item" data-categoria="fitness">Fitness</span>
+    <span class="menu-item" data-categoria="bolsas">Bolsas</span>
+    <span class="menu-item" data-categoria="cintos">Cintos</span>
+    <span class="menu-item" data-categoria="semijoias">Semi Jóias</span>
+    <span class="menu-item" data-categoria="looks">Looks</span>
+    <span class="menu-item icone-menu">🔍</span>
+    <span class="menu-item icone-menu">🛒</span>
+  </div>
+
+  <div class="hero">
+    <h1>DELAS STORE</h1>
+    <p>Bem-vinda à sua loja de moda feminina premium</p>
+    <div class="hero-botoes">
+      <button class="btn btn-vinho">Ver Novidades</button>
+      <button class="btn">Fazer Pedido</button>
+    </div>
+  </div>
+
+  <div id="produtosContainer">
+    <!-- CALÇAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="calcas">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('80.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Calça Alfaiataria 1" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('81.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Calça Jeans 2" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca3.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Calça Pantalona 3" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca4.jpg');"></div><span class="preco">R$ 219</span><button class="btn-card" data-nome="Calça Cargo 4" data-preco="219">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca5.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Calça Social 5" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca6.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Calça Legging 6" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca7.jpg');"></div><span class="preco">R$ 309</span><button class="btn-card" data-nome="Calça Wide Leg 7" data-preco="309">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca8.jpg');"></div><span class="preco">R$ 239</span><button class="btn-card" data-nome="Calça Skinny 8" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca9.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Calça Moletom 9" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca10.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Calça Linho 10" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca11.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Calça 11" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca12.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Calça 12" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca13.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Calça 13" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca14.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Calça 14" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca15.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Calça 15" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca16.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Calça 16" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca17.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Calça 17" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca18.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Calça 18" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca19.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Calça 19" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca20.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Calça 20" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca21.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Calça 21" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca22.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Calça 22" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca23.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Calça 23" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca24.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Calça 24" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca25.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Calça 25" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca26.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Calça 26" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca27.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Calça 27" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca28.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Calça 28" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca29.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Calça 29" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('calca30.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Calça 30" data-preco="289">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- SHORTS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="shorts">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('02.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Shorts 1" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('03.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Shorts 2" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short3.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Shorts 3" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short4.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Shorts 4" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short5.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Shorts 5" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short6.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Shorts 6" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short7.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Shorts 7" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short8.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Shorts 8" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short9.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Shorts 9" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short10.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Shorts 10" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short11.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Shorts 11" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short12.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Shorts 12" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short13.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Shorts 13" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short14.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Shorts 14" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short15.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Shorts 15" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short16.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Shorts 16" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short17.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Shorts 17" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short18.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Shorts 18" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short19.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Shorts 19" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short20.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Shorts 20" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short21.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Shorts 21" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short22.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Shorts 22" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short23.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Shorts 23" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short24.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Shorts 24" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short25.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Shorts 25" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short26.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Shorts 26" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short27.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Shorts 27" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short28.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Shorts 28" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short29.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Shorts 29" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('short30.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Shorts 30" data-preco="209">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- ALFAIATARIA - 30 imagens -->
+    <div class="categoria-secao" data-categoria="alfaiataria">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria1.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Alfaiataria 1" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria2.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Alfaiataria 2" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria3.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Alfaiataria 3" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria4.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Alfaiataria 4" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria5.jpg');"></div><span class="preco">R$ 389</span><button class="btn-card" data-nome="Alfaiataria 5" data-preco="389">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria6.jpg');"></div><span class="preco">R$ 419</span><button class="btn-card" data-nome="Alfaiataria 6" data-preco="419">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria7.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Alfaiataria 7" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria8.jpg');"></div><span class="preco">R$ 339</span><button class="btn-card" data-nome="Alfaiataria 8" data-preco="339">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria9.jpg');"></div><span class="preco">R$ 369</span><button class="btn-card" data-nome="Alfaiataria 9" data-preco="369">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria10.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Alfaiataria 10" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria11.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Alfaiataria 11" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria12.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Alfaiataria 12" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria13.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Alfaiataria 13" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria14.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Alfaiataria 14" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria15.jpg');"></div><span class="preco">R$ 389</span><button class="btn-card" data-nome="Alfaiataria 15" data-preco="389">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria16.jpg');"></div><span class="preco">R$ 419</span><button class="btn-card" data-nome="Alfaiataria 16" data-preco="419">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria17.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Alfaiataria 17" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria18.jpg');"></div><span class="preco">R$ 339</span><button class="btn-card" data-nome="Alfaiataria 18" data-preco="339">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria19.jpg');"></div><span class="preco">R$ 369</span><button class="btn-card" data-nome="Alfaiataria 19" data-preco="369">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria20.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Alfaiataria 20" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria21.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Alfaiataria 21" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria22.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Alfaiataria 22" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria23.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Alfaiataria 23" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria24.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Alfaiataria 24" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria25.jpg');"></div><span class="preco">R$ 389</span><button class="btn-card" data-nome="Alfaiataria 25" data-preco="389">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria26.jpg');"></div><span class="preco">R$ 419</span><button class="btn-card" data-nome="Alfaiataria 26" data-preco="419">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria27.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Alfaiataria 27" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria28.jpg');"></div><span class="preco">R$ 339</span><button class="btn-card" data-nome="Alfaiataria 28" data-preco="339">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria29.jpg');"></div><span class="preco">R$ 369</span><button class="btn-card" data-nome="Alfaiataria 29" data-preco="369">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('alfaiataria30.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Alfaiataria 30" data-preco="399">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- VESTIDOS - AGORA COM 41 IMAGENS (30 + 11 novas) -->
+    <div class="categoria-secao" data-categoria="vestidos">
+      <div class="cards-scroll">
+        <!-- Primeiras 30 imagens (numeradas de 40 a 70) -->
+        <div class="card"><div class="card-imagem" style="background-image: url('40.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 1" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('42.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Vestido 2" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('43.jpg');"></div><span class="preco">R$ 239</span><button class="btn-card" data-nome="Vestido 3" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('44.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Vestido 4" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('45.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Vestido 5" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('46.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Vestido 6" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('47.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Vestido 7" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('48.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Vestido 8" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('49.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Vestido 9" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('50.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 10" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('51.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 11" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('52.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Vestido 12" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('53.jpg');"></div><span class="preco">R$ 239</span><button class="btn-card" data-nome="Vestido 13" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('54.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Vestido 14" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('55.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Vestido 15" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('56.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Vestido 16" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('57.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Vestido 17" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('58.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Vestido 18" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('59.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Vestido 19" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('60.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 20" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('61.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 21" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('62.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Vestido 22" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('63.jpg');"></div><span class="preco">R$ 239</span><button class="btn-card" data-nome="Vestido 23" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('64.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Vestido 24" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('65.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Vestido 25" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('66.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Vestido 26" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('67.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Vestido 27" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('68.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Vestido 28" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('69.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Vestido 29" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('70.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 30" data-preco="299">Fazer Pedido</button></div>
+        <!-- +11 NOVAS IMAGENS (70 a 80) -->
+        <div class="card"><div class="card-imagem" style="background-image: url('71.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Vestido 31" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('72.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Vestido 32" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('73.jpg');"></div><span class="preco">R$ 349</span><button class="btn-card" data-nome="Vestido 33" data-preco="349">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('74.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Vestido 34" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('75.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Vestido 35" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('76.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Vestido 36" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('77.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Vestido 37" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('78.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Vestido 38" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('79.jpg');"></div><span class="preco">R$ 339</span><button class="btn-card" data-nome="Vestido 39" data-preco="339">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('80.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Vestido 40" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('81.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Vestido 41" data-preco="359">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- CONJUNTOS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="conjuntos">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto1.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Conjunto 1" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto2.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Conjunto 2" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto3.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Conjunto 3" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto4.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Conjunto 4" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto5.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Conjunto 5" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto6.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Conjunto 6" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto7.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Conjunto 7" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto8.jpg');"></div><span class="preco">R$ 229</span><button class="btn-card" data-nome="Conjunto 8" data-preco="229">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto9.jpg');"></div><span class="preco">R$ 349</span><button class="btn-card" data-nome="Conjunto 9" data-preco="349">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto10.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Conjunto 10" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto11.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Conjunto 11" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto12.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Conjunto 12" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto13.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Conjunto 13" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto14.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Conjunto 14" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto15.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Conjunto 15" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto16.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Conjunto 16" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto17.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Conjunto 17" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto18.jpg');"></div><span class="preco">R$ 229</span><button class="btn-card" data-nome="Conjunto 18" data-preco="229">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto19.jpg');"></div><span class="preco">R$ 349</span><button class="btn-card" data-nome="Conjunto 19" data-preco="349">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto20.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Conjunto 20" data-preco="269">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto21.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Conjunto 21" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto22.jpg');"></div><span class="preco">R$ 249</span><button class="btn-card" data-nome="Conjunto 22" data-preco="249">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto23.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Conjunto 23" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto24.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Conjunto 24" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto25.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Conjunto 25" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto26.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Conjunto 26" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto27.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Conjunto 27" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto28.jpg');"></div><span class="preco">R$ 229</span><button class="btn-card" data-nome="Conjunto 28" data-preco="229">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto29.jpg');"></div><span class="preco">R$ 349</span><button class="btn-card" data-nome="Conjunto 29" data-preco="349">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('conjunto30.jpg');"></div><span class="preco">R$ 269</span><button class="btn-card" data-nome="Conjunto 30" data-preco="269">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- BLUSAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="blusas">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('34.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 1" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('35.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Blusa 2" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('36.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Blusa 3" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('37.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Blusa 4" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('38.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Blusa 5" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('39.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Blusa 6" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa7.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Blusa 7" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa8.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Blusa 8" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa9.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 9" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa10.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Blusa 10" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa11.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 11" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa12.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Blusa 12" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa13.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Blusa 13" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa14.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Blusa 14" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa15.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Blusa 15" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa16.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Blusa 16" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa17.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Blusa 17" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa18.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Blusa 18" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa19.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 19" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa20.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Blusa 20" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa21.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 21" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa22.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Blusa 22" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa23.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Blusa 23" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa24.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Blusa 24" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa25.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Blusa 25" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa26.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Blusa 26" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa27.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Blusa 27" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa28.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Blusa 28" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa29.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Blusa 29" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('blusa30.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Blusa 30" data-preco="139">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- FITNESS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="fitness">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('04.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 1" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('05.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Fitness 2" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('06.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Fitness 3" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('07.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Fitness 4" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness5.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Fitness 5" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness6.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Fitness 6" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness7.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Fitness 7" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness8.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 8" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness9.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Fitness 9" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness10.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Fitness 10" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness11.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 11" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness12.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Fitness 12" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness13.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Fitness 13" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness14.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Fitness 14" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness15.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Fitness 15" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness16.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Fitness 16" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness17.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Fitness 17" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness18.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 18" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness19.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Fitness 19" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness20.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Fitness 20" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness21.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 21" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness22.jpg');"></div><span class="preco">R$ 119</span><button class="btn-card" data-nome="Fitness 22" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness23.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Fitness 23" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness24.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Fitness 24" data-preco="199">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness25.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Fitness 25" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness26.jpg');"></div><span class="preco">R$ 209</span><button class="btn-card" data-nome="Fitness 26" data-preco="209">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness27.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Fitness 27" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness28.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Fitness 28" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness29.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Fitness 29" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('fitness30.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Fitness 30" data-preco="149">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- BOLSAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="bolsas">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('08.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 1" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('09.jpg');"></div><span class="preco">R$ 259</span><button class="btn-card" data-nome="Bolsa 2" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('10.jpg');"></div><span class="preco">R$ 299</span><button class="btn-card" data-nome="Bolsa 3" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('11.jpg');"></div><span class="preco">R$ 329</span><button class="btn-card" data-nome="Bolsa 4" data-preco="329">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('12.jpg');"></div><span class="preco">R$ 279</span><button class="btn-card" data-nome="Bolsa 5" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('13.jpg');"></div><span class="preco">R$ 359</span><button class="btn-card" data-nome="Bolsa 6" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('14.jpg');"></div><span class="preco">R$ 239</span><button class="btn-card" data-nome="Bolsa 7" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('15.jpg');"></div><span class="preco">R$ 289</span><button class="btn-card" data-nome="Bolsa 8" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('16.jpg');"></div><span class="preco">R$ 319</span><button class="btn-card" data-nome="Bolsa 9" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('17.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 10" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('18.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 11" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('19.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 12" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('20.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 13" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('21.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 14" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('22.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 15" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa16.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 16" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa17.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 17" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa18.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 18" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa19.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 19" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa20.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 20" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa21.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 21" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa22.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 22" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa23.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 23" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa24.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 24" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa25.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 25" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa26.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 26" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa27.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 27" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa28.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 28" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa29.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 29" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('bolsa30.jpg');"></div><span class="preco">R$ 399</span><button class="btn-card" data-nome="Bolsa 30" data-preco="399">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- CINTOS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="cintos">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto1.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 1" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto2.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 2" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto3.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 3" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto4.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 4" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto5.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 5" data-preco="99">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto6.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 6" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto7.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 7" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto8.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 8" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto9.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 9" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto10.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 10" data-preco="99">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto11.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 11" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto12.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 12" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto13.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 13" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto14.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 14" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto15.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 15" data-preco="99">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto16.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 16" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto17.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 17" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto18.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 18" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto19.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 19" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto20.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 20" data-preco="99">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto21.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 21" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto22.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 22" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto23.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 23" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto24.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 24" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto25.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 25" data-preco="99">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto26.jpg');"></div><span class="preco">R$ 89</span><button class="btn-card" data-nome="Cinto 26" data-preco="89">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto27.jpg');"></div><span class="preco">R$ 69</span><button class="btn-card" data-nome="Cinto 27" data-preco="69">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto28.jpg');"></div><span class="preco">R$ 79</span><button class="btn-card" data-nome="Cinto 28" data-preco="79">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto29.jpg');"></div><span class="preco">R$ 59</span><button class="btn-card" data-nome="Cinto 29" data-preco="59">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('cinto30.jpg');"></div><span class="preco">R$ 99</span><button class="btn-card" data-nome="Cinto 30" data-preco="99">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- SEMI JOIAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="semijoias">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('joia1.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 1" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia2.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 2" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia3.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 3" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia4.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Semi Joia 4" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia5.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Semi Joia 5" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia6.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Semi Joia 6" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia7.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Semi Joia 7" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia8.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 8" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia9.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 9" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia10.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 10" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia11.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 11" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia12.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 12" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia13.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 13" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia14.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Semi Joia 14" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia15.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Semi Joia 15" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia16.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Semi Joia 16" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia17.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Semi Joia 17" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia18.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 18" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia19.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 19" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia20.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 20" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia21.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 21" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia22.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 22" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia23.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 23" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia24.jpg');"></div><span class="preco">R$ 139</span><button class="btn-card" data-nome="Semi Joia 24" data-preco="139">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia25.jpg');"></div><span class="preco">R$ 149</span><button class="btn-card" data-nome="Semi Joia 25" data-preco="149">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia26.jpg');"></div><span class="preco">R$ 169</span><button class="btn-card" data-nome="Semi Joia 26" data-preco="169">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia27.jpg');"></div><span class="preco">R$ 189</span><button class="btn-card" data-nome="Semi Joia 27" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia28.jpg');"></div><span class="preco">R$ 159</span><button class="btn-card" data-nome="Semi Joia 28" data-preco="159">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia29.jpg');"></div><span class="preco">R$ 129</span><button class="btn-card" data-nome="Semi Joia 29" data-preco="129">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('joia30.jpg');"></div><span class="preco">R$ 179</span><button class="btn-card" data-nome="Semi Joia 30" data-preco="179">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+    <!-- LOOKS COMPLETOS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="looks">
+      <div class="looks-grid">
+        <div class="look-card"><div class="look-img" style="background-image: url('23.jpg');"></div><div class="look-info"><h4>Look 1</h4><button class="btn-look btn-look-comprar" data-nome="Look 1" data-preco="549">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('24.jpg');"></div><div class="look-info"><h4>Look 2</h4><button class="btn-look btn-look-comprar" data-nome="Look 2" data-preco="499">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('25.jpg');"></div><div class="look-info"><h4>Look 3</h4><button class="btn-look btn-look-comprar" data-nome="Look 3" data-preco="599">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('26.jpg');"></div><div class="look-info"><h4>Look 4</h4><button class="btn-look btn-look-comprar" data-nome="Look 4" data-preco="579">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('27.jpg');"></div><div class="look-info"><h4>Look 5</h4><button class="btn-look btn-look-comprar" data-nome="Look 5" data-preco="459">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('28.jpg');"></div><div class="look-info"><h4>Look 6</h4><button class="btn-look btn-look-comprar" data-nome="Look 6" data-preco="629">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('29.jpg');"></div><div class="look-info"><h4>Look 7</h4><button class="btn-look btn-look-comprar" data-nome="Look 7" data-preco="699">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('30.jpg');"></div><div class="look-info"><h4>Look 8</h4><button class="btn-look btn-look-comprar" data-nome="Look 8" data-preco="389">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('31.jpg');"></div><div class="look-info"><h4>Look 9</h4><button class="btn-look btn-look-comprar" data-nome="Look 9" data-preco="649">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('32.jpg');"></div><div class="look-info"><h4>Look 10</h4><button class="btn-look btn-look-comprar" data-nome="Look 10" data-preco="529">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('33.jpg');"></div><div class="look-info"><h4>Look 11</h4><button class="btn-look btn-look-comprar" data-nome="Look 11" data-preco="549">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look12.jpg');"></div><div class="look-info"><h4>Look 12</h4><button class="btn-look btn-look-comprar" data-nome="Look 12" data-preco="499">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look13.jpg');"></div><div class="look-info"><h4>Look 13</h4><button class="btn-look btn-look-comprar" data-nome="Look 13" data-preco="599">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look14.jpg');"></div><div class="look-info"><h4>Look 14</h4><button class="btn-look btn-look-comprar" data-nome="Look 14" data-preco="579">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look15.jpg');"></div><div class="look-info"><h4>Look 15</h4><button class="btn-look btn-look-comprar" data-nome="Look 15" data-preco="459">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look16.jpg');"></div><div class="look-info"><h4>Look 16</h4><button class="btn-look btn-look-comprar" data-nome="Look 16" data-preco="629">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look17.jpg');"></div><div class="look-info"><h4>Look 17</h4><button class="btn-look btn-look-comprar" data-nome="Look 17" data-preco="699">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look18.jpg');"></div><div class="look-info"><h4>Look 18</h4><button class="btn-look btn-look-comprar" data-nome="Look 18" data-preco="389">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look19.jpg');"></div><div class="look-info"><h4>Look 19</h4><button class="btn-look btn-look-comprar" data-nome="Look 19" data-preco="649">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look20.jpg');"></div><div class="look-info"><h4>Look 20</h4><button class="btn-look btn-look-comprar" data-nome="Look 20" data-preco="529">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look21.jpg');"></div><div class="look-info"><h4>Look 21</h4><button class="btn-look btn-look-comprar" data-nome="Look 21" data-preco="549">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look22.jpg');"></div><div class="look-info"><h4>Look 22</h4><button class="btn-look btn-look-comprar" data-nome="Look 22" data-preco="499">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look23.jpg');"></div><div class="look-info"><h4>Look 23</h4><button class="btn-look btn-look-comprar" data-nome="Look 23" data-preco="599">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look24.jpg');"></div><div class="look-info"><h4>Look 24</h4><button class="btn-look btn-look-comprar" data-nome="Look 24" data-preco="579">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look25.jpg');"></div><div class="look-info"><h4>Look 25</h4><button class="btn-look btn-look-comprar" data-nome="Look 25" data-preco="459">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look26.jpg');"></div><div class="look-info"><h4>Look 26</h4><button class="btn-look btn-look-comprar" data-nome="Look 26" data-preco="629">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look27.jpg');"></div><div class="look-info"><h4>Look 27</h4><button class="btn-look btn-look-comprar" data-nome="Look 27" data-preco="699">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look28.jpg');"></div><div class="look-info"><h4>Look 28</h4><button class="btn-look btn-look-comprar" data-nome="Look 28" data-preco="389">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look29.jpg');"></div><div class="look-info"><h4>Look 29</h4><button class="btn-look btn-look-comprar" data-nome="Look 29" data-preco="649">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('look30.jpg');"></div><div class="look-info"><h4>Look 30</h4><button class="btn-look btn-look-comprar" data-nome="Look 30" data-preco="529">Comprar Look Completo</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beneficios">
+    <div class="beneficio-item"><div class="icone">🚚</div>Entrega grátis na cidade</div>
+    <div class="beneficio-item"><div class="icone">✨</div>Peças selecionadas</div>
+    <div class="beneficio-item"><div class="icone">💬</div>Atendimento personalizado</div>
+    <div class="beneficio-item"><div class="icone">⭐</div>Qualidade garantida</div>
+  </div>
+
+  <h2>⭐ Depoimentos</h2>
+  <div class="depoimentos cards-scroll">
+    <div class="depoimento-card"><div class="estrelas">★★★★★</div><strong>Ana Clara</strong><p>“A roupa chegou perfeita e muito cheirosa!”</p></div>
+    <div class="depoimento-card"><div class="estrelas">★★★★★</div><strong>Mariana</strong><p>“Atendimento rápido, amei o conjunto.”</p></div>
+    <div class="depoimento-card"><div class="estrelas">★★★★☆</div><strong>Juliana</strong><p>“Tecido maravilhoso, visto mais.”</p></div>
+  </div>
+
+  <div id="modalProduto" class="modal-overlay">
+    <div class="modal-produto" id="modalContent"></div>
+  </div>
+
+  <button class="whatsapp-float" id="whatsappFloatBtn">💬 Precisa de ajuda? Fale conosco</button>
+
+  <script>
+    (function() {
+      let produtoAtual = { nome: '', preco: '', img: '', descricao: '' };
+      let pagamentoSelecionado = '';
+      let entregaSelecionada = 'entrega';
+      let endereco = { cep: '', rua: '', bairro: '', referencia: '' };
+      const telefoneLoja = '38999716783';
+
+      const modal = document.getElementById('modalProduto');
+      const modalContent = document.getElementById('modalContent');
+
+      // FILTRO POR CATEGORIA
+      const menuItems = document.querySelectorAll('#menuFiltro .menu-item[data-categoria]');
+      const secoes = document.querySelectorAll('.categoria-secao');
+
+      function filtrarCategoria(categoria) {
+        menuItems.forEach(item => item.classList.remove('ativo'));
+        document.querySelector(`#menuFiltro .menu-item[data-categoria="${categoria}"]`).classList.add('ativo');
+
+        if (categoria === 'todos') {
+          secoes.forEach(secao => secao.classList.remove('hidden-categoria'));
+        } else {
+          secoes.forEach(secao => {
+            if (secao.dataset.categoria === categoria) {
+              secao.classList.remove('hidden-categoria');
+            } else {
+              secao.classList.add('hidden-categoria');
+            }
+          });
+        }
+      }
+
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const categoria = item.dataset.categoria;
+          filtrarCategoria(categoria);
+        });
+      });
+
+      // Função para abrir modal
+      function abrirModal(produtoNome, preco, imagemUrl = '', descricao = 'Peça exclusiva da coleção.') {
+        produtoAtual = { nome: produtoNome, preco, img: imagemUrl, descricao };
+        pagamentoSelecionado = '';
+        entregaSelecionada = 'entrega';
+        endereco = { cep: '', rua: '', bairro: '', referencia: '' };
+        renderModalStep1();
+        modal.style.display = 'flex';
+      }
+
+      function renderModalStep1() {
+        const imagemStyle = produtoAtual.img ? `background-image: url('${produtoAtual.img}');` : 'background-color: #f0ded5;';
+        
+        modalContent.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="modal-img" style="${imagemStyle} background-size: cover; background-position: center;"></div>
+            <h2>${produtoAtual.nome}</h2>
+            <div class="preco" style="font-size:2rem;">R$ ${produtoAtual.preco}</div>
+            <p>${produtoAtual.descricao}</p>
+            <div><strong>Forma de pagamento</strong></div>
+            <div class="opcao-pagamento">
+              <button class="btn-pagamento" data-pag="Pix">Pix</button>
+              <button class="btn-pagamento" data-pag="Cartão">Cartão</button>
+              <button class="btn-pagamento" data-pag="Dinheiro">Dinheiro</button>
+            </div>
+            <button class="btn btn-vinho" id="prosseguirBtn" style="width:100%;">Prosseguir</button>
+            <button class="btn" id="fecharModal" style="width:100%;">Fechar</button>
+          </div>
+        `;
+        document.querySelectorAll('.btn-pagamento').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.btn-pagamento').forEach(b => b.classList.remove('selecionado'));
+            btn.classList.add('selecionado');
+            pagamentoSelecionado = btn.dataset.pag;
+          });
+        });
+        document.getElementById('prosseguirBtn').addEventListener('click', () => {
+          if (!pagamentoSelecionado) { alert('Selecione uma forma de pagamento'); return; }
+          renderModalStep2();
+        });
+        document.getElementById('fecharModal').addEventListener('click', () => { modal.style.display = 'none'; });
+      }
+
+      function renderModalStep2() {
+        modalContent.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <h3>Opção de entrega</h3>
+            <div class="entrega-opcoes">
+              <label><input type="radio" name="entrega" value="entrega" checked> Entrega em casa</label>
+              <label><input type="radio" name="entrega" value="retirada"> Retirar na loja</label>
+            </div>
+            <div id="enderecoFields">
+              <input type="text" placeholder="CEP" id="cep" />
+              <input type="text" placeholder="Rua" id="rua" />
+              <input type="text" placeholder="Bairro" id="bairro" />
+              <input type="text" placeholder="Referência (opcional)" id="referencia" />
+            </div>
+            <button class="btn btn-vinho" id="finalizarWppBtn" style="width:100%;">👉 Finalizar Pedido pelo WhatsApp</button>
+            <button class="btn" id="voltarBtn">Voltar</button>
+          </div>
+        `;
+        const radioEntrega = document.querySelectorAll('input[name="entrega"]');
+        radioEntrega.forEach(r => r.addEventListener('change', (e) => {
+          entregaSelecionada = e.target.value;
+          document.getElementById('enderecoFields').style.display = entregaSelecionada === 'entrega' ? 'block' : 'none';
+        }));
+        document.getElementById('voltarBtn').addEventListener('click', renderModalStep1);
+
+        document.getElementById('finalizarWppBtn').addEventListener('click', () => {
+          if (entregaSelecionada === 'entrega') {
+            endereco.cep = document.getElementById('cep').value;
+            endereco.rua = document.getElementById('rua').value;
+            endereco.bairro = document.getElementById('bairro').value;
+            endereco.referencia = document.getElementById('referencia').value;
+            if (!endereco.cep || !endereco.rua || !endereco.bairro) {
+              alert('Preencha endereço completo');
+              return;
+            }
+          }
+          gerarMensagemWhatsApp();
+        });
+      }
+
+      function gerarMensagemWhatsApp() {
+        let endText = '';
+        if (entregaSelecionada === 'entrega') {
+          endText = `Endereço: ${endereco.rua}, ${endereco.bairro} - CEP ${endereco.cep} (Ref: ${endereco.referencia || 'não informado'})`;
+        } else {
+          endText = 'Retirada na loja';
+        }
+
+        const linkImagem = produtoAtual.img || 'https://via.placeholder.com/300';
+        const msg = `Olá! Gostaria de finalizar o pedido:%0A
+*Produto:* ${produtoAtual.nome}%0A
+*Preço:* R$ ${produtoAtual.preco}%0A
+*Pagamento:* ${pagamentoSelecionado}%0A
+*Entrega:* ${entregaSelecionada === 'entrega' ? 'Em casa' : 'Retirar na loja'}%0A
+${endText}%0A
+*Link da imagem:* ${linkImagem}%0A%0A
+_Cores e tamanhos serão confirmados no WhatsApp_`;
+
+        window.open(`https://wa.me/${telefoneLoja}?text=${msg}`, '_blank');
+        modal.style.display = 'none';
+      }
+
+      // Event listeners para botões de produto
+      document.querySelectorAll('.btn-card, .btn-look-comprar').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.card, .look-card');
+          if (!card) return;
+          
+          const nome = btn.dataset.nome || (card.classList.contains('look-card') ? card.querySelector('h4')?.innerText : 'Produto') || 'Produto';
+          const preco = btn.dataset.preco || card.querySelector('.preco')?.innerText?.replace('R$', '').trim() || '0';
+          
+          let imagemUrl = '';
+          const imgDiv = card.classList.contains('card') ? card.querySelector('.card-imagem') : card.querySelector('.look-img');
+          if (imgDiv) {
+            const bgImage = window.getComputedStyle(imgDiv).backgroundImage;
+            const match = bgImage.match(/url\(["']?([^"']*)["']?\)/);
+            if (match && match[1]) {
+              imagemUrl = match[1];
+            }
+          }
+          
+          const descricao = card.classList.contains('look-card') ? 'Look completo com peças selecionadas.' : 'Peça exclusiva da coleção.';
+          abrirModal(nome, preco, imagemUrl, descricao);
+        });
+      });
+
+      // Botões do banner
+      document.querySelectorAll('.hero .btn').forEach(btn => {
+        if (btn.innerText.includes('Fazer Pedido')) {
+          btn.addEventListener('click', () => abrirModal('Vestido Destaque', '249', 'vestido_destaque.jpg', 'Lançamento 2026'));
+        }
+        if (btn.innerText.includes('Ver Novidades')) {
+          btn.addEventListener('click', () => filtrarCategoria('todos'));
+        }
+      });
+
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+      document.getElementById('whatsappFloatBtn').addEventListener('click', () => {
+        window.open(`https://wa.me/${telefoneLoja}?text=Olá! Preciso de ajuda com o site.`, '_blank');
+      });
+
+      // Inicia com todos os produtos visíveis
+      filtrarCategoria('todos');
+    })();
+  </script>
+</body>
+</html>
