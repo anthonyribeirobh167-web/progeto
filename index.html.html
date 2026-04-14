@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>DELAS STORE | Moda Feminina Premium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #faf7f2;
+      color: #2d2d2d;
+      line-height: 1.4;
+      padding-bottom: 30px;
+    }
+
+    :root {
+      --vinho: #800020;
+      --bege: #f5ebe0;
+      --bege-claro: #faf3ec;
+      --branco: #ffffff;
+      --cinza-texto: #3a3a3a;
+    }
+
+    h1, h2, h3 {
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin: 0 0 0.5rem 16px;
+      color: var(--vinho);
+      font-weight: 350;
+      border-left: 4px solid var(--vinho);
+      padding-left: 12px;
+    }
+
+    .menu-horizontal {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      background: var(--branco);
+      padding: 12px 16px;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border-bottom: 1px solid rgba(128,0,32,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .menu-horizontal::-webkit-scrollbar { display: none; }
+    .menu-item {
+      white-space: nowrap;
+      color: #4a4a4a;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .menu-item.ativo { border-bottom-color: var(--vinho); color: var(--vinho); font-weight: 500; }
+    .icone-menu {
+      font-size: 1.2rem;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, var(--bege-claro) 0%, #fff6ed 100%);
+      padding: 40px 20px 30px 20px;
+      text-align: center;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 6px 20px rgba(128,0,32,0.05);
+      margin-bottom: 30px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 500;
+      color: var(--vinho);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #5a5a5a;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+    .hero-botoes {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--branco);
+      border: 1px solid var(--vinho);
+      color: var(--vinho);
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-vinho {
+      background: var(--vinho);
+      color: white;
+      border: none;
+      box-shadow: 0 8px 16px rgba(128,0,32,0.15);
+    }
+
+    .categoria-secao {
+      margin-bottom: 20px;
+    }
+
+    /* Remove os títulos das categorias */
+    .categoria-secao h2 {
+      display: none;
+    }
+
+    .cards-scroll {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 8px 16px 20px 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .cards-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .cards-scroll::-webkit-scrollbar-track {
+      background: #e5d9ce;
+      border-radius: 10px;
+    }
+    .cards-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(128,0,32,0.5);
+      border-radius: 10px;
+    }
+    .card {
+      flex: 0 0 150px;
+      background: white;
+      border-radius: 28px;
+      padding: 12px 10px 14px 10px;
+      box-shadow: 0 10px 18px -6px rgba(0,0,0,0.08);
+      scroll-snap-align: start;
+      border: 1px solid rgba(128,0,32,0.05);
+      transition: transform 0.15s;
+    }
+    .card:hover { transform: scale(0.98); }
+    .card-imagem {
+      width: 100%;
+      aspect-ratio: 1/1.2;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #f5ebe0;
+    }
+    .preco {
+      font-weight: 600;
+      color: var(--vinho);
+      font-size: 1rem;
+      margin-top: 8px;
+      display: block;
+    }
+    .btn-card {
+      background: transparent;
+      border: 1px solid var(--vinho);
+      color: var(--vinho);
+      border-radius: 40px;
+      padding: 8px 0;
+      width: 100%;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .looks-grid {
+      display: flex;
+      gap: 16px;
+      padding: 0 16px 20px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .looks-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+    .looks-grid::-webkit-scrollbar-track {
+      background: #e5d9ce;
+      border-radius: 10px;
+    }
+    .looks-grid::-webkit-scrollbar-thumb {
+      background-color: rgba(128,0,32,0.5);
+      border-radius: 10px;
+    }
+    .look-card {
+      flex: 0 0 200px;
+      background: white;
+      border-radius: 40px;
+      box-shadow: 0 12px 24px -12px rgba(0,0,0,0.15);
+    }
+    .look-img {
+      height: 200px;
+      border-radius: 40px 40px 0 0;
+      background-size: cover;
+      background-position: center;
+      background-color: #f5ebe0;
+    }
+    .look-info {
+      padding: 16px;
+    }
+    .btn-look {
+      background: var(--vinho);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 0;
+      width: 100%;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .beneficios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 16px;
+      background: var(--branco);
+      padding: 28px 16px;
+      margin: 30px 0;
+      border-radius: 60px 60px 30px 30px;
+      box-shadow: inset 0 1px 8px rgba(255,255,255,0.8), 0 8px 18px rgba(0,0,0,0.02);
+    }
+    .beneficio-item {
+      flex: 1 0 40%;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--vinho);
+    }
+    .icone { font-size: 2rem; margin-bottom: 4px; }
+
+    .depoimentos {
+      padding: 20px 16px 30px;
+    }
+    .depoimento-card {
+      background: white;
+      padding: 22px;
+      border-radius: 40px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+    .estrelas { color: #d4af37; font-size: 1.2rem; letter-spacing: 2px; }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .modal-produto {
+      background: white;
+      width: 100%;
+      max-height: 94vh;
+      overflow-y: auto;
+      border-radius: 40px 40px 0 0;
+      padding: 28px 20px 30px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.08);
+      animation: slideUp 0.3s;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-img {
+      width: 100%;
+      height: 250px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      background-size: cover;
+      background-position: center;
+      background-color: #f5ebe0;
+    }
+    .opcao-pagamento {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .opcao-pagamento button {
+      background: #f0f0f0;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 40px;
+      font-size: 1rem;
+      flex: 1 0 auto;
+      cursor: pointer;
+    }
+    .opcao-pagamento button.selecionado { background: var(--vinho); color: white; }
+    .entrega-opcoes {
+      display: flex;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .entrega-opcoes label { display: flex; align-items: center; gap: 6px; }
+    .endereco-form input {
+      width: 100%;
+      padding: 14px 18px;
+      margin: 6px 0;
+      border-radius: 50px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(37,211,102,0.25);
+      z-index: 30;
+      border: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .hidden-categoria { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="menu-horizontal" id="menuFiltro">
+    <span class="menu-item ativo" data-categoria="todos">Todos</span>
+    <span class="menu-item" data-categoria="calcas">Calças</span>
+    <span class="menu-item" data-categoria="shorts">Shorts</span>
+    <span class="menu-item" data-categoria="alfaiataria">Alfaiataria</span>
+    <span class="menu-item" data-categoria="vestidos">Vestidos</span>
+    <span class="menu-item" data-categoria="conjuntos">Conjuntos</span>
+    <span class="menu-item" data-categoria="blusas">Blusas</span>
+    <span class="menu-item" data-categoria="fitness">Fitness</span>
+    <span class="menu-item" data-categoria="bolsas">Bolsas</span>
+    <span class="menu-item" data-categoria="cintos">Cintos</span>
+    <span class="menu-item" data-categoria="semijoias">Semi Jóias</span>
+    <span class="menu-item" data-categoria="looks">Looks</span>
+    <span class="menu-item icone-menu">🔍</span>
+    <span class="menu-item icone-menu">🛒</span>
+  </div>
+
+  <div class="hero">
+    <h1>DELAS STORE</h1>
+    <p>Bem-vinda à sua loja de moda feminina premium</p>
+  </div>
+
+  
+    <!-- ALFAIATARIA - 30 imagens -->
+    <div class="categoria-secao" data-categoria="alfaiataria">
+      <div class="cards-scroll">
+        
+        <div class="card"><div class="card-imagem" style="background-image: url('78.jpg');"></div><span class="preco">R$ 174,90</span><button class="btn-card" data-nome="Alfaiataria 2" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('79.jpg');"></div><span class="preco">R$ 174,90</span><button class="btn-card" data-nome="Alfaiataria 3" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('82.jpg');"></div><span class="preco">R$ 99,90</span><button class="btn-card" data-nome="Alfaiataria 4" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('83.jpg');"></div><span class="preco">R$ 164,90</span><button class="btn-card" data-nome="Alfaiataria 5" data-preco="389">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('84.jpg');"></div><span class="preco">R$ 164,90</span><button class="btn-card" data-nome="Alfaiataria 6" data-preco="419">Fazer Pedido</button></div>
+        
+      </div>
+    </div>
+
+    <!-- VESTIDOS - COM 41 IMAGENS -->
+    <div class="categoria-secao" data-categoria="vestidos">
+      <div class="cards-scroll">
+       
+        <div class="card"><div class="card-imagem" style="background-image: url('42.jpg');"></div><span class="preco">R$ 149,90</span><button class="btn-card" data-nome="Vestido 2" data-preco="359">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('43.jpg');"></div><span class="preco">R$ 149,90</span><button class="btn-card" data-nome="Vestido 3" data-preco="239">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('44.jpg');"></div><span class="preco">R$ 149,90</span><button class="btn-card" data-nome="Vestido 4" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('45.jpg');"></div><span class="preco">R$ 149,90</span><button class="btn-card" data-nome="Vestido 5" data-preco="319">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('46.jpg');"></div><span class="preco">R$ 87,90</span><button class="btn-card" data-nome="Vestido 6" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('47.jpg');"></div><span class="preco">R$ 87,90</span><button class="btn-card" data-nome="Vestido 7" data-preco="289">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('48.jpg');"></div><span class="preco">R$ 189,90</span><button class="btn-card" data-nome="Vestido 8" data-preco="259">Fazer Pedido</button></div>
+        <div 
+        <div class="card"><div class="card-imagem" style="background-image: url('54.jpg');"></div><span class="preco">R$ 119,90</span><button class="btn-card" data-nome="Vestido 14" data-preco="279">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('55.jpg');"></div><span class="preco">R$ 119,90</span><button class="btn-card" data-nome="Vestido 15" data-preco="319">Fazer Pedido</button></div>
+        
+        <div class="card"><div class="card-imagem" style="background-image: url('85.jpg');"></div><span class="preco">R$ 87,90</span><button class="btn-card" data-nome="Vestido 42" data-preco="369">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('86.jpg');"></div><span class="preco">R$ 179,90</span><button class="btn-card" data-nome="Vestido 42" data-preco="379">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('87.jpg');"></div><span class="preco">R$ 179,90</span><button class="btn-card" data-nome="Vestido 42" data-preco="389">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('88.jpg');"></div><span class="preco">R$ 216,90</span><button class="btn-card" data-nome="Vestido 42" data-preco="399">Fazer Pedido</button></div>
+      </div>
+    </div>
+
+   
+    <!-- BLUSAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="blusas">
+      <div class="cards-scroll">
+        
+        <div class="card"><div class="card-imagem" style="background-image: url('92.jpg');"></div><span class="preco">R$ 89,90</span><button class="btn-card" data-nome="Blusa 7" data-preco="169">Fazer Pedido</button></div>
+        
+      </div>
+    </div>
+
+    <!-- FITNESS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="fitness">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('04.jpg');"></div><span class="preco">R$ 164,90</span><button class="btn-card" data-nome="Fitness 1" data-preco="189">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('05.jpg');"></div><span class="preco">R$ 164,90</span><button class="btn-card" data-nome="Fitness 2" data-preco="119">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('06.jpg');"></div><span class="preco">R$ 164,90</span><button class="btn-card" data-nome="Fitness 3" data-preco="179">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('07.jpg');"></div><span class="preco">R$ 199</span><button class="btn-card" data-nome="Fitness 4" data-preco="199">Fazer Pedido</button></div>
+        
+    <!-- BOLSAS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="bolsas">
+      <div class="cards-scroll">
+        <div class="card"><div class="card-imagem" style="background-image: url('08.jpg');"></div><span class="preco">R$ 79,90</span><button class="btn-card" data-nome="Bolsa 1" data-preco="399">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('09.jpg');"></div><span class="preco">R$ 49,90</span><button class="btn-card" data-nome="Bolsa 2" data-preco="259">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('10.jpg');"></div><span class="preco">R$ 79,90</span><button class="btn-card" data-nome="Bolsa 3" data-preco="299">Fazer Pedido</button></div>
+        <div class="card"><div class="card-imagem" style="background-image: url('11.jpg');"></div><span class="preco">R$ 49,90</span><button class="btn-card" data-nome="Bolsa 4" data-preco="329">Fazer Pedido</button></div>
+        
+      </div>
+    </div>
+
+    
+    </div>
+
+    
+    <!-- LOOKS COMPLETOS - 30 imagens -->
+    <div class="categoria-secao" data-categoria="looks">
+      <div class="looks-grid">
+        <div class="look-card"><div class="look-img" style="background-image: url('23.jpg');"></div><div class="look-info"><h4>Look 1</h4><button class="btn-look btn-look-comprar" data-nome="Look 1" data-preco="79,90">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('24.jpg');"></div><div class="look-info"><h4>Look 2</h4><button class="btn-look btn-look-comprar" data-nome="Look 2" data-preco="119,90">Comprar Look Completo</button></div></div>
+        
+        <div class="look-card"><div class="look-img" style="background-image: url('89.jpg');"></div><div class="look-info"><h4>Look 12</h4><button class="btn-look btn-look-comprar" data-nome="Look 12" data-preco="199,90">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('90.jpg');"></div><div class="look-info"><h4>Look 13</h4><button class="btn-look btn-look-comprar" data-nome="Look 13" data-preco="59,90">Comprar Look Completo</button></div></div>
+        <div class="look-card"><div class="look-img" style="background-image: url('91.jpg');"></div><div class="look-info"><h4>Look 14</h4><button class="btn-look btn-look-comprar" data-nome="Look 14" data-preco="74,90">Comprar Look Completo</button></div></div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="beneficios">
+    <div class="beneficio-item"><div class="icone">🚚</div>Entrega grátis na cidade</div>
+    <div class="beneficio-item"><div class="icone">✨</div>Peças selecionadas</div>
+    <div class="beneficio-item"><div class="icone">💬</div>Atendimento personalizado</div>
+    <div class="beneficio-item"><div class="icone">⭐</div>Qualidade garantida</div>
+  </div>
+
+  <h2>⭐ Depoimentos</h2>
+  <div class="depoimentos cards-scroll">
+    <div class="depoimento-card"><div class="estrelas">★★★★★</div><strong>Ana Clara</strong><p>“A roupa chegou perfeita e muito cheirosa!”</p></div>
+    <div class="depoimento-card"><div class="estrelas">★★★★★</div><strong>Mariana</strong><p>“Atendimento rápido, amei o conjunto.”</p></div>
+    <div class="depoimento-card"><div class="estrelas">★★★★☆</div><strong>Juliana</strong><p>“Tecido maravilhoso, visto mais.”</p></div>
+  </div>
+
+  <div id="modalProduto" class="modal-overlay">
+    <div class="modal-produto" id="modalContent"></div>
+  </div>
+
+  <button class="whatsapp-float" id="whatsappFloatBtn">💬 Precisa de ajuda? Fale conosco</button>
+
+  <script>
+    (function() {
+      let produtoAtual = { nome: '', preco: '', img: '', descricao: '' };
+      let pagamentoSelecionado = '';
+      let entregaSelecionada = 'entrega';
+      let endereco = { cep: '', rua: '', bairro: '', referencia: '' };
+      const telefoneLoja = '38999716783';
+
+      const modal = document.getElementById('modalProduto');
+      const modalContent = document.getElementById('modalContent');
+
+      const menuItems = document.querySelectorAll('#menuFiltro .menu-item[data-categoria]');
+      const secoes = document.querySelectorAll('.categoria-secao');
+
+      function filtrarCategoria(categoria) {
+        menuItems.forEach(item => item.classList.remove('ativo'));
+        document.querySelector(`#menuFiltro .menu-item[data-categoria="${categoria}"]`).classList.add('ativo');
+
+        if (categoria === 'todos') {
+          secoes.forEach(secao => secao.classList.remove('hidden-categoria'));
+        } else {
+          secoes.forEach(secao => {
+            if (secao.dataset.categoria === categoria) {
+              secao.classList.remove('hidden-categoria');
+            } else {
+              secao.classList.add('hidden-categoria');
+            }
+          });
+        }
+      }
+
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const categoria = item.dataset.categoria;
+          filtrarCategoria(categoria);
+        });
+      });
+
+      function abrirModal(produtoNome, preco, imagemUrl = '', descricao = 'Peça exclusiva da coleção.') {
+        produtoAtual = { nome: produtoNome, preco, img: imagemUrl, descricao };
+        pagamentoSelecionado = '';
+        entregaSelecionada = 'entrega';
+        endereco = { cep: '', rua: '', bairro: '', referencia: '' };
+        renderModalStep1();
+        modal.style.display = 'flex';
+      }
+
+      function renderModalStep1() {
+        const imagemStyle = produtoAtual.img ? `background-image: url('${produtoAtual.img}');` : 'background-color: #f0ded5;';
+        
+        modalContent.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="modal-img" style="${imagemStyle} background-size: cover; background-position: center;"></div>
+            <h2>${produtoAtual.nome}</h2>
+            <div class="preco" style="font-size:2rem;">R$ ${produtoAtual.preco}</div>
+            <p>${produtoAtual.descricao}</p>
+            <div><strong>Forma de pagamento</strong></div>
+            <div class="opcao-pagamento">
+              <button class="btn-pagamento" data-pag="Pix">Pix</button>
+              <button class="btn-pagamento" data-pag="Cartão">Cartão</button>
+              <button class="btn-pagamento" data-pag="Dinheiro">Dinheiro</button>
+            </div>
+            <button class="btn btn-vinho" id="prosseguirBtn" style="width:100%;">Prosseguir</button>
+            <button class="btn" id="fecharModal" style="width:100%;">Fechar</button>
+          </div>
+        `;
+        document.querySelectorAll('.btn-pagamento').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.btn-pagamento').forEach(b => b.classList.remove('selecionado'));
+            btn.classList.add('selecionado');
+            pagamentoSelecionado = btn.dataset.pag;
+          });
+        });
+        document.getElementById('prosseguirBtn').addEventListener('click', () => {
+          if (!pagamentoSelecionado) { alert('Selecione uma forma de pagamento'); return; }
+          renderModalStep2();
+        });
+        document.getElementById('fecharModal').addEventListener('click', () => { modal.style.display = 'none'; });
+      }
+
+      function renderModalStep2() {
+        modalContent.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <h3>Opção de entrega</h3>
+            <div class="entrega-opcoes">
+              <label><input type="radio" name="entrega" value="entrega" checked> Entrega em casa</label>
+              <label><input type="radio" name="entrega" value="retirada"> Retirar na loja</label>
+            </div>
+            <div id="enderecoFields">
+              <input type="text" placeholder="CEP" id="cep" />
+              <input type="text" placeholder="Rua" id="rua" />
+              <input type="text" placeholder="Bairro" id="bairro" />
+              <input type="text" placeholder="Referência (opcional)" id="referencia" />
+            </div>
+            <button class="btn btn-vinho" id="finalizarWppBtn" style="width:100%;">👉 Finalizar Pedido pelo WhatsApp</button>
+            <button class="btn" id="voltarBtn">Voltar</button>
+          </div>
+        `;
+        const radioEntrega = document.querySelectorAll('input[name="entrega"]');
+        radioEntrega.forEach(r => r.addEventListener('change', (e) => {
+          entregaSelecionada = e.target.value;
+          document.getElementById('enderecoFields').style.display = entregaSelecionada === 'entrega' ? 'block' : 'none';
+        }));
+        document.getElementById('voltarBtn').addEventListener('click', renderModalStep1);
+
+        document.getElementById('finalizarWppBtn').addEventListener('click', () => {
+          if (entregaSelecionada === 'entrega') {
+            endereco.cep = document.getElementById('cep').value;
+            endereco.rua = document.getElementById('rua').value;
+            endereco.bairro = document.getElementById('bairro').value;
+            endereco.referencia = document.getElementById('referencia').value;
+            if (!endereco.cep || !endereco.rua || !endereco.bairro) {
+              alert('Preencha endereço completo');
+              return;
+            }
+          }
+          gerarMensagemWhatsApp();
+        });
+      }
+
+      function gerarMensagemWhatsApp() {
+        let endText = '';
+        if (entregaSelecionada === 'entrega') {
+          endText = `Endereço: ${endereco.rua}, ${endereco.bairro} - CEP ${endereco.cep} (Ref: ${endereco.referencia || 'não informado'})`;
+        } else {
+          endText = 'Retirada na loja';
+        }
+
+        const linkImagem = produtoAtual.img || 'https://via.placeholder.com/300';
+        const msg = `Olá! Gostaria de finalizar o pedido:%0A
+*Produto:* ${produtoAtual.nome}%0A
+*Preço:* R$ ${produtoAtual.preco}%0A
+*Pagamento:* ${pagamentoSelecionado}%0A
+*Entrega:* ${entregaSelecionada === 'entrega' ? 'Em casa' : 'Retirar na loja'}%0A
+${endText}%0A
+*Link da imagem:* ${linkImagem}%0A%0A
+_Cores e tamanhos serão confirmados no WhatsApp_`;
+
+        window.open(`https://wa.me/${telefoneLoja}?text=${msg}`, '_blank');
+        modal.style.display = 'none';
+      }
+
+      document.querySelectorAll('.btn-card, .btn-look-comprar').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.card, .look-card');
+          if (!card) return;
+          
+          const nome = btn.dataset.nome || (card.classList.contains('look-card') ? card.querySelector('h4')?.innerText : 'Produto') || 'Produto';
+          const preco = btn.dataset.preco || card.querySelector('.preco')?.innerText?.replace('R$', '').trim() || '0';
+          
+          let imagemUrl = '';
+          const imgDiv = card.classList.contains('card') ? card.querySelector('.card-imagem') : card.querySelector('.look-img');
+          if (imgDiv) {
+            const bgImage = window.getComputedStyle(imgDiv).backgroundImage;
+            const match = bgImage.match(/url\(["']?([^"']*)["']?\)/);
+            if (match && match[1]) {
+              imagemUrl = match[1];
+            }
+          }
+          
+          const descricao = card.classList.contains('look-card') ? 'Look completo com peças selecionadas.' : 'Peça exclusiva da coleção.';
+          abrirModal(nome, preco, imagemUrl, descricao);
+        });
+      });
+
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+      document.getElementById('whatsappFloatBtn').addEventListener('click', () => {
+        window.open(`https://wa.me/${telefoneLoja}?text=Olá! Preciso de ajuda com o site.`, '_blank');
+      });
+
+      filtrarCategoria('todos');
+    })();
+  </script>
+</body>
+</html>
