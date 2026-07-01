@@ -128,7 +128,6 @@
       margin-bottom: 20px;
     }
 
-    /* Remove os títulos das categorias */
     .categoria-secao h2 {
       display: none;
     }
@@ -350,9 +349,125 @@
     }
 
     .hidden-categoria { display: none !important; }
+
+    /* ===== BLOQUEIO DE MENSALIDADE ===== */
+    #blockOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+      user-select: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #blockMessage {
+      background: #ffffff;
+      max-width: 520px;
+      width: 90%;
+      padding: 45px 30px 50px;
+      border-radius: 60px 60px 40px 40px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 2px #800020 inset;
+      border: 8px solid #f5ebe0;
+      position: relative;
+      animation: pulse 2.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 2px #800020 inset; }
+      100% { box-shadow: 0 30px 80px rgba(128,0,32,0.6), 0 0 0 4px #800020 inset; }
+    }
+
+    #blockMessage .block-icon {
+      font-size: 4.5rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #blockMessage h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #800020;
+      letter-spacing: 1px;
+      border-left: none;
+      padding-left: 0;
+      margin: 0 0 14px 0;
+    }
+
+    #blockMessage p {
+      font-size: 1.2rem;
+      color: #2d2d2d;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    #blockMessage .destaque {
+      font-weight: 700;
+      color: #800020;
+      background: #f5ebe0;
+      padding: 4px 14px;
+      border-radius: 40px;
+      display: inline-block;
+    }
+
+    #blockMessage .sub-text {
+      font-size: 0.95rem;
+      color: #777;
+      margin-top: 22px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    #blockMessage .sub-text strong {
+      color: #800020;
+    }
+
+    /* impede clique em tudo atrás */
+    body.blocked {
+      overflow: hidden;
+      height: 100vh;
+    }
+    body.blocked .whatsapp-float,
+    body.blocked .menu-horizontal,
+    body.blocked .btn,
+    body.blocked .btn-card,
+    body.blocked .btn-look,
+    body.blocked .btn-look-comprar {
+      pointer-events: none !important;
+    }
   </style>
 </head>
 <body>
+
+  <!-- ===== BLOQUEIO DE MENSALIDADE ===== -->
+  <div id="blockOverlay">
+    <div id="blockMessage">
+      <span class="block-icon">🔒</span>
+      <h2>Site fora do ar</h2>
+      <p>
+        A mensalidade <span class="destaque">não foi paga</span> neste mês.<br>
+        <strong style="color:#800020;">Após o pagamento</strong>, o site voltará ao normal.
+      </p>
+      <div class="sub-text">
+        ⏳ Aguarde a confirmação do pagamento pela equipe <strong>DELAS STORE</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO NORMAL DO SITE (fica visível atrás do bloqueio) -->
   <div class="menu-horizontal" id="menuFiltro">
     <span class="menu-item ativo" data-categoria="todos">Todos</span>
     <span class="menu-item" data-categoria="calcas">Calças</span>
@@ -375,8 +490,7 @@
     <p>Bem-vinda à sua loja de moda feminina premium</p>
   </div>
 
-  
-    <!-- ALFAIATARIA - 30 imagens -->
+  <!-- ALFAIATARIA - 30 imagens -->
     <div class="categoria-secao" data-categoria="alfaiataria">
       <div class="cards-scroll">
         
@@ -411,7 +525,6 @@
       </div>
     </div>
 
-   
     <!-- BLUSAS - 30 imagens -->
     <div class="categoria-secao" data-categoria="blusas">
       <div class="cards-scroll">
